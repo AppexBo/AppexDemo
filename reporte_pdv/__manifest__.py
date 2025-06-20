@@ -5,7 +5,11 @@
 	"name" : "Reporte de ventas pdv",
 	"version" : "17.0.0.0",
 	"category" : "Point of Sale",
-	"depends" : ['base','point_of_sale','account'],
+	"depends" : [
+		'base',
+		'point_of_sale',
+		'account'
+	],
 	"author": "AppexBo",
 	'summary': 'Reporte de ventas',
 	"description": "REPORTES PDV",
@@ -17,6 +21,7 @@
 	"license": "LGPL-3",
 	"data": [
 		#'security/ir.model.access.csv',  # Archivo de permisos
-        'views/report_pdv_sale.xml'
+        'views/report_pdv_sale.xml',
+		'views/report_pdv_sale_ord.xml'
 	],
 }

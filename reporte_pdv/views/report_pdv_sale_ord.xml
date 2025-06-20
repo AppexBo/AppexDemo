@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<odoo>
+    <!-- Vista para el reporte en forma de lista -->
+    <record id="view_report_pdv_sale_ord_tree" model="ir.ui.view"> 
+        <field name="name">report.pdv.sale.ord.tree</field> 
+        <field name="model">pos.payment</field> 
+        <field name="arch" type="xml"> 
+            <tree string="Reporte de Ventas" create="false"> 
+                <field name="pos_order_id" widget="many2one_clickable" string="Ref de Orden"/>
+                <field name="payment_date"/>
+                <field name="payment_method_name"/>
+                <field name="amount" string="Total"/>
+                <field name="cashier_id" string="Cajero"/>
+
+            </tree> 
+        </field> 
+    </record> 
+    <!--search-->
+    <record id="view_report_pdv_sale_ord_tree_search" model="ir.ui.view">
+        <field name="name">report.pdv.sale.ord.tree.search</field>
+        <field name="model">pos.payment</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="payment_date"/>
+                <field name="payment_method_name" string="Pago"/>
+                <field name="amount"/>
+                <field name="pos_order_id"/>
+                <field name="cashier_id"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Vista para el reporte en forma de lista -->
+    <record id="action_menu_reporte_pdv_sale_ord" model="ir.actions.act_window"> 
+        <field name="name">Reporte de Ventas Ord</field>  
+        <field name="view_id" ref="view_report_pdv_sale_ord_tree" />
+        <field name="res_model">pos.payment</field>  
+        <field name="type">ir.actions.act_window</field>
+    </record> 
+    <!-- Vista para el reporte en forma de lista -->
+    <menuitem id="menu_reporte_pdv_sale_ord"  
+        name="Reporte de Ventas Ord"  
+        parent="point_of_sale.menu_point_rep"  
+        action="action_menu_reporte_pdv_sale_ord"  
+        sequence="11"  
+    /> 
+</odoo>
