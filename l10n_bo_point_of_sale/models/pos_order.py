@@ -57,7 +57,28 @@ class PosOrder(models.Model):
                 raise UserError('No se encontro una sucursal (BO) configurado en el POS fiscal.')
         return vals
     
+    def _generate_pos_order_invoice(self):
+        """Genera y publica manualmente la factura para evitar errores de conciliación con asientos en borrador."""
+        for order in self:
+            if not order.config_id.invoice_journal_id:
+                raise UserError('No se ha configurado un diario de facturas para este POS.')
 
+            # Crear la factura
+            invoice = order._create_invoice()
+            _logger.info(f"Factura generada: {invoice.name} para orden {order.name}")
+
+            # Verificar y publicar si está en borrador
+            if invoice.state == 'draft':
+                _logger.info(f"Publicando factura en borrador: {invoice.name}")
+                invoice._post()
+
+            # Asociar la factura con la orden
+            order.write({
+                'account_move': invoice.id,
+                'state': 'invoiced',
+            })
+
+        return True
 
     # PAYMENTS
     def _payment_fields(self, order, ui_paymentline):
@@ -66,14 +87,4 @@ class PosOrder(models.Model):
     
     def add_payment(self, data):
         res = super(PosOrder, self).add_payment(data)
-        return res
-
-    def _generate_pos_order_invoice(self):
-        res = super(PosOrder, self)._generate_pos_order_invoice()
-
-        # 🔧 VALIDACIÓN Y PUBLICACIÓN MANUAL DE ASIENTOS SI HAY ALGUNO EN BORRADOR
-        for move in self.invoice_ids.mapped('move_id'):
-            if move.state == 'draft':
-                move._post()
-
         return res
