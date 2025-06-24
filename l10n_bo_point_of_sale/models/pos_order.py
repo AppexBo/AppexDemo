@@ -3,12 +3,11 @@
 from odoo import api, models, fields
 from odoo.exceptions import UserError
 import logging
+
 _logger = logging.getLogger(__name__)
 
-
-
 class PosOrder(models.Model):
-    _inherit = ['pos.order']
+    _inherit = 'pos.order'
 
     def get_payment_type_default(self):
         pos_payment_ids = self.payment_ids.filtered(lambda line: line.payment_method_id.payment_type_id != False)
@@ -18,31 +17,29 @@ class PosOrder(models.Model):
             _payment_type_ids = self.env['l10n.bo.type.payment'].search([])
             _descripcion = ''
             for pos_payment_id in pos_payment_ids:
-                _descripcion += pos_payment_id.payment_method_id.payment_type_id.descripcion+'-'
-                _payment_type_ids = _payment_type_ids.filtered(lambda line: pos_payment_id.payment_method_id.payment_type_id.descripcion in line.descripcion)
+                _descripcion += pos_payment_id.payment_method_id.payment_type_id.descripcion + '-'
+                _payment_type_ids = _payment_type_ids.filtered(
+                    lambda line: pos_payment_id.payment_method_id.payment_type_id.descripcion in line.descripcion
+                )
             _descripcion = _descripcion[:-1]
-            _descripcion = _descripcion.replace('–','-')
+            _descripcion = _descripcion.replace('–', '-')
             _desc = _descripcion.split('-')
             for pos_payment_id in _payment_type_ids:
-                SEPARATOR, DESCRIPTION = '–' , pos_payment_id.descripcion    
+                SEPARATOR, DESCRIPTION = '–', pos_payment_id.descripcion
                 if SEPARATOR in DESCRIPTION:
                     DESCRIPTION = DESCRIPTION.replace(SEPARATOR, '-')
-                
+
                 DESCRIPTION = DESCRIPTION.split('-')
                 DESCRIPTION = [palabra.strip() for palabra in DESCRIPTION]
                 if sorted(_desc) == sorted(DESCRIPTION):
                     _logger.info(f"TIPO DE PAGO SIAT: {pos_payment_id.descripcion}")
                     return pos_payment_id.id
+        return False
 
-    
-    def action_pos_order_invoice(self):
-        res = super(PosOrder, self).action_pos_order_invoice()
-        return res
-    
     def _prepare_invoice_vals(self):
         vals = super(PosOrder, self)._prepare_invoice_vals()
         if self.config_id.enable_bo_edi:
-            if  self.config_id.branch_office_id:
+            if self.config_id.branch_office_id:
                 if self.config_id.pos_id:
                     if self.config_id.branch_office_id.company_id.id == self.config_id.pos_id.company_id.id:
                         vals['payment_type_id'] = self.get_payment_type_default()
@@ -50,27 +47,24 @@ class PosOrder(models.Model):
                         vals['pos_id'] = self.config_id.pos_id.id
                         vals['document_type_id'] = self.config_id.document_type_id.id
                     else:
-                        raise UserError('Las compañias de sucursal (BO) y punto de venta (BO) no coinciden')
+                        raise UserError('Las compañías de sucursal (BO) y punto de venta (BO) no coinciden')
                 else:
-                    raise UserError('No se encontro un punto de venta (BO) configurado en el POS fiscal.')
+                    raise UserError('No se encontró un punto de venta (BO) configurado en el POS fiscal.')
             else:
-                raise UserError('No se encontro una sucursal (BO) configurado en el POS fiscal.')
+                raise UserError('No se encontró una sucursal (BO) configurada en el POS fiscal.')
         return vals
-    
+
     def _generate_pos_order_invoice(self):
+        """Genera y publica manualmente la factura para evitar errores de conciliación con asientos en borrador."""
         for order in self:
             if not order.config_id.invoice_journal_id:
                 raise UserError('No se ha configurado un diario de facturas para este POS.')
 
-            # Preparar valores para la factura
-            move_vals = order._prepare_invoice_vals()
-
-            # Crear la factura pasando move_vals
-            invoice = order._create_invoice(move_vals)
-
+            # Crear la factura
+            invoice = order._create_invoice()
             _logger.info(f"Factura generada: {invoice.name} para orden {order.name}")
 
-            # Publicar la factura si está en borrador
+            # Verificar y publicar si está en borrador
             if invoice.state == 'draft':
                 _logger.info(f"Publicando factura en borrador: {invoice.name}")
                 invoice._post()
@@ -82,6 +76,7 @@ class PosOrder(models.Model):
             })
 
         return True
+
 
 
     # PAYMENTS
