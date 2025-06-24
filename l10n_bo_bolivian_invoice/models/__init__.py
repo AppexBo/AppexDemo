@@ -31,4 +31,3 @@ from . import l10n_bo_cafc
 from . import account_tax
 
 
-from . import fix
