@@ -58,16 +58,19 @@ class PosOrder(models.Model):
         return vals
     
     def _generate_pos_order_invoice(self):
-        """Genera y publica manualmente la factura para evitar errores de conciliación con asientos en borrador."""
         for order in self:
             if not order.config_id.invoice_journal_id:
                 raise UserError('No se ha configurado un diario de facturas para este POS.')
 
-            # Crear la factura
-            invoice = order._create_invoice()
+            # Preparar valores para la factura
+            move_vals = order._prepare_invoice_vals()
+
+            # Crear la factura pasando move_vals
+            invoice = order._create_invoice(move_vals)
+
             _logger.info(f"Factura generada: {invoice.name} para orden {order.name}")
 
-            # Verificar y publicar si está en borrador
+            # Publicar la factura si está en borrador
             if invoice.state == 'draft':
                 _logger.info(f"Publicando factura en borrador: {invoice.name}")
                 invoice._post()
@@ -79,6 +82,7 @@ class PosOrder(models.Model):
             })
 
         return True
+
 
     # PAYMENTS
     def _payment_fields(self, order, ui_paymentline):
