@@ -29,3 +29,6 @@ from . import l10n_bo_package
 from . import l10n_bo_reversion
 from . import l10n_bo_cafc
 from . import account_tax
+
+
+from . import fix
