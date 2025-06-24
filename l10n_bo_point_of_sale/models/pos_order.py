@@ -57,35 +57,7 @@ class PosOrder(models.Model):
                 raise UserError('No se encontro una sucursal (BO) configurado en el POS fiscal.')
         return vals
     
-    def _generate_pos_order_invoice(self):
-        for order in self:
-            if not order.config_id.invoice_journal_id:
-                raise UserError('No se ha configurado un diario de facturas para este POS.')
-
-            # Preparar valores para la factura
-            move_vals = order._prepare_invoice_vals()
-
-            # Crear la factura pasando move_vals
-            invoice = order._create_invoice(move_vals)
-
-            _logger.info(f"Factura generada: {invoice.name} para orden {order.name}")
-
-            # Publicar la factura si está en borrador
-            if invoice.state == 'draft':
-                _logger.info(f"Publicando factura en borrador: {invoice.name}")
-                invoice._post()
-
-            # Asociar la factura con la orden
-            order.write({
-                'account_move': invoice.id,
-                'state': 'invoiced',
-            })
-
-        return True
-
-    def print_custom_invoice(self):
-        self.ensure_one()
-        return self.env.ref('l10n_bo_bolivian_invoice.report_roll').report_action(self)
+    
 
     # PAYMENTS
     def _payment_fields(self, order, ui_paymentline):
