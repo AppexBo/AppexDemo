@@ -83,6 +83,9 @@ class PosOrder(models.Model):
 
         return True
 
+    def print_custom_invoice(self):
+        self.ensure_one()
+        return self.env.ref('l10n_bo_bolivian_invoice.report_roll').report_action(self)
 
     # PAYMENTS
     def _payment_fields(self, order, ui_paymentline):
