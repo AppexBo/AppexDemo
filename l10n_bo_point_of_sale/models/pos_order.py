@@ -67,3 +67,13 @@ class PosOrder(models.Model):
     def add_payment(self, data):
         res = super(PosOrder, self).add_payment(data)
         return res
+
+    def _generate_pos_order_invoice(self):
+        res = super(PosOrder, self)._generate_pos_order_invoice()
+
+        # 🔧 VALIDACIÓN Y PUBLICACIÓN MANUAL DE ASIENTOS SI HAY ALGUNO EN BORRADOR
+        for move in self.invoice_ids.mapped('move_id'):
+            if move.state == 'draft':
+                move._post()
+
+        return res
