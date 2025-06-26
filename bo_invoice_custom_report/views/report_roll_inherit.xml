@@ -6,22 +6,38 @@
                      t-att-data-oe-model="'account.move'" 
                      t-att-data-oe-id="o.id"
                      style="width: 80mm; font-size: 10pt; margin: 2mm; padding: 0;">
-                    <style>
-    table, tr, td, th, div {
+                   <style>
+    /* Elimina todo borde visible de tablas y celdas */
+    table, tr, td, th {
+        border: none !important;
+        border-width: 0 !important;
+        border-style: none !important;
+        padding: 0px;
+        margin: 0px;
+    }
+
+    /* Quita bordes de los divs si es necesario */
+    div {
         border: none !important;
         box-shadow: none !important;
+        margin: 0;
+        padding: 0;
     }
 
+    /* Asegura que las tablas no generen bordes colapsados visibles */
     table {
-        border-collapse: collapse;
+        border-collapse: collapse !important;
+        border-spacing: 0px !important;
     }
 
+    /* Mantiene solo los separadores si los usas */
     hr {
         border: none;
         border-top: 1px dashed #000;
         margin: 5px 0;
     }
 </style>
+
                     <div style="width: 80mm; font-size: 12px; padding: 0; font-family: 'Arial', sans-serif;">
                         <table style="width: 100%; text-align: center;">
                             <tr>
