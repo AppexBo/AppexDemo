@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data >
-        
-   
-
-        
         <record id="paperformat_roll_custom" model="report.paperformat" >
             <field name="name">Tamaño rollo (BO)</field>
             <field name="default" eval="False" />
