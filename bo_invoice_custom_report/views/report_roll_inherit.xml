@@ -26,6 +26,23 @@
                         }
                     </style> -->
                     <div style="width: 80mm; font-size: 12px; padding: 0; font-family: 'Arial', sans-serif;">
+                        <div>
+                            <span t-if="o.state == 'cancel'" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-45deg); color: rgba(255, 0, 0, 0.2); font-size: 100px; z-index: -1; text-align: center; width: 100%; opacity: 0.3;">
+                                <b>ANULADO</b>
+                            </span>
+                            <span t-if="o.code_environment == '2'" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-45deg); color: rgba(128, 128, 128, 0.2); font-size: 60px; z-index: -1; text-align: center; width: 100%; opacity: 0.3;">
+                                <b>SIN VALOR LEGAL</b>
+                            </span>
+                        </div>
+                        <t t-if="o.document_type_id.getCode() == 1">
+                            <t t-call="l10n_bo_bolivian_invoice.l10n_bo_invoice_purchase_sale_roll_template" t-lang="o.partner_id.lang"/>
+</t>
+                        <t t-elif="o.document_type_id.getCode() == 3">
+                            <span>Factura de rollo exportacion</span>
+                        </t>
+                        <t t-elif="o.document_type_id.getCode() == 24">
+                            <span>Nota de rollo nota de credito debito</span>
+                        </t>
                         <table style="width: 100%; text-align: center; border: 1px solid white; ">
                             <tr style="border: none !important;">
                                 <td style="border: none !important;">
@@ -174,7 +191,7 @@
                                 </t>
                             </tbody>
                         </table>
-                        <hr style="border: 5px; border-top: 1px dashed #000; margin: 5px 0;"/>
+                        <hr style="border: none; border-top: 3px dashed #000; margin: 5px 0;"/>
                         <table style="width: 100%; text-align: center; border: 1px solid white;">
                             <tr style="border: none !important;">
                                 <td style="text-align: right; border: none !important;">SUBTOTAL Bs</td>
