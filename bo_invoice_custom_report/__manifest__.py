@@ -6,6 +6,9 @@
     'depends': ['l10n_bo_bolivian_invoice'],
     'data': [
         'views/report_roll_inherit.xml',
+        'views/boton.xml',
+        'views/cuerpo.xml',
+
     ],
     'installable': True,
     'auto_install': False,

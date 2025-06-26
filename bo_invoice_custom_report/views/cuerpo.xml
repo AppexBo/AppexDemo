@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <data noupdate="0">
+    <data >
         <template id="external_layout_invoice">
             <t t-if="not o" t-set="o" t-value="doc" />
             <t t-if="not company">
