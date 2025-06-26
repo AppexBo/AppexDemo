@@ -52,7 +52,7 @@
                             </tr>
                         </table>
                         <div style="text-align: center; font-weight: bold; font-size: 13px;">
-                            --------------------------------------
+                            -----------------------------------------------------
                         </div>
 
                         <table style="width: 100%; text-align: center; border: 1px solid white;">
@@ -86,7 +86,7 @@
                             <span t-esc="o.cuf"/>
                         </div>
                         <div style="text-align: center; font-weight: bold; font-size: 13px;">
-                            --------------------------------------
+                            -----------------------------------------------------
                         </div>
 
                         <table style="width: 100%; text-align: center; border: 1px solid white;">
@@ -127,7 +127,7 @@
                             </tr>
                         </table>
                         <div style="text-align: center; font-weight: bold; font-size: 13px;">
-                            --------------------------------------
+                            -----------------------------------------------------
                         </div>
 
                         <table style="width: 100%; text-align: center; border: 1px solid white;">
@@ -165,7 +165,7 @@
                             </tbody>
                         </table>
                         <div style="text-align: center; font-weight: bold; font-size: 13px;">
-                            --------------------------------------
+                            -----------------------------------------------------
                         </div>
 
                         <table style="width: 100%; text-align: center; border: 1px solid white;">
@@ -226,7 +226,7 @@
                                 <span t-esc="o.getBolivianLiteral()"/> Bolivianos</span>
                         </div>
                         <div style="text-align: center; font-weight: bold; font-size: 13px;">
-                            --------------------------------------
+                            -----------------------------------------------------
                         </div>
 
 
