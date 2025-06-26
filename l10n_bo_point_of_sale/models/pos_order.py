@@ -90,9 +90,10 @@ class PosOrder(models.Model):
             # Preparar valores para la factura
             move_vals = order._prepare_invoice_vals()
 
-            # ⚠️ Forzar la fecha contable de la factura con la fecha del pedido
-            move_vals['invoice_date'] = order.date_order.date()
-            move_vals['date'] = order.date_order.date()
+            # ⚠️ Forzar fecha contable con la fecha actual local del usuario
+            today = fields.Date.context_today(order)
+            move_vals['invoice_date'] = today
+            move_vals['date'] = today
 
             # Crear la factura pasando move_vals
             invoice = order._create_invoice(move_vals)
