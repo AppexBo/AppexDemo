@@ -1,0 +1,15 @@
+<odoo>
+    <template id="report_roll_inherit" inherit_id="l10n_bo_bolivian_invoice.report_roll">
+        <!-- Cambiar título del reporte si existe un <h2> -->
+        <xpath expr="//h2" position="replace">
+            <h2>Factura Electrónica Personalizada</h2>
+        </xpath>
+
+        <!-- Añadir mensaje al final del reporte -->
+        <xpath expr="//div[hasclass('footer')]" position="inside">
+            <p style="text-align: center; font-size: 10px; margin-top: 20px;">
+                Gracias por su compra - Esta es una factura modificada.
+            </p>
+        </xpath>
+    </template>
+</odoo>
