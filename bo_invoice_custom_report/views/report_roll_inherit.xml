@@ -1,6 +1,12 @@
 <odoo>
-  <template id="custom_bo_invoice_template" inherit_id="l10n_bo_invoice_purchase_sale_roll_template">
-    <!-- Aquí modificas solo lo necesario con xpath -->
-    <span>HOLA</span>
+  <template id="l10n_bo_invoice_purchase_sale_roll_template" inherit_id="l10n_bo_invoice_purchase_sale_roll_template">
+    <xpath expr="." position="replace">
+      <t>
+        <!-- Tu nuevo contenido completo -->
+        <table style="width: 100%;">
+          <tr><td style="text-align: center"><b>NUEVO FORMATO DE FACTURA</b></td></tr>
+        </table>
+      </t>
+    </xpath>
   </template>
 </odoo>
