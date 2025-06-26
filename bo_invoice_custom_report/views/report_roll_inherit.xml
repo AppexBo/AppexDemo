@@ -51,7 +51,8 @@
                                 </td>
                             </tr>
                         </table>
-                        <hr style="border: none; border-top: 3px dashed #000; margin: 5px 0;"/>
+                        <hr style="border: none; border-top: 2px dashed black; margin: 4px 0;" />
+
                         <table style="width: 100%; text-align: center; border: 1px solid white;">
                             <tr style="border: none !important;">
                                 <td style="border: none !important;">
@@ -82,7 +83,8 @@
                         <div style="text-align: center; font-size: 13px;">
                             <span t-esc="o.cuf"/>
                         </div>
-                        <hr style="border: none; border-top: 3px dashed #000; margin: 5px 0;"/>
+                        <hr style="border: none; border-top: 2px dashed black; margin: 4px 0;" />
+
                         <table style="width: 100%; text-align: center; border: 1px solid white;">
                             <tr style="border: none !important;">
                                 <td style="width: 40%; text-align: right; border: none !important;">
@@ -120,7 +122,8 @@
                                 </td>
                             </tr>
                         </table>
-                        <hr style="border: none; border-top: 3px dashed #000; margin: 5px 0;"/>
+                        <hr style="border: none; border-top: 2px dashed black; margin: 4px 0;" />
+
                         <table style="width: 100%; text-align: center; border: 1px solid white;">
                             <tr style="text-align: center; border: none !important;">
                                 <th colspan="2" style="border: none !important;">DETALLE</th>
@@ -155,7 +158,8 @@
                                 </t>
                             </tbody>
                         </table>
-                        <hr style="border: none; border-top: 3px dashed #000; margin: 5px 0;"/>
+                        <hr style="border: none; border-top: 2px dashed black; margin: 4px 0;" />
+
                         <table style="width: 100%; text-align: center; border: 1px solid white;">
                             <tr style="border: none !important;">
                                 <td style="text-align: right; border: none !important;">SUBTOTAL Bs</td>
@@ -213,7 +217,9 @@
                             <span>Son:
                                 <span t-esc="o.getBolivianLiteral()"/> Bolivianos</span>
                         </div>
-                        <hr style="border: none; border-top: 1px dashed #000; margin: 5px 0;"/>
+                        <hr style="border: none; border-top: 2px dashed black; margin: 4px 0;" />
+
+
                         <div style="text-align: center; font-size: 11px;">
                             ESTA FACTURA CONTRIBUYE AL DESARROLLO DEL PAÍS, EL USO ILÍCITO SERÁ SANCIONADO PENALMENTE DE ACUERDO A LEY
                         </div>
