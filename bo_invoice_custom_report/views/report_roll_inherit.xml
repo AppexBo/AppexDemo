@@ -1,61 +1,147 @@
 <odoo>
-    <template id="l10n_bo_bolivian_invoice.report_roll">
+    <template id="l10n_bo_invoice_purchase_sale_roll_template">
         <t t-call="web.html_container">
             <t t-call="web.external_layout">
-                <t t-foreach="docs" t-as="o">
-                    <div class="page">
-                        <h2 style="text-align: center;">FACTURA PERSONALIZADA</h2>
-                        <p>
-                            <strong>NIT Emisor:</strong>
-                            <t t-esc="o.company_id.vat"/>
-                        </p>
-                        <p>
-                            <strong>Razón Social:</strong>
-                            <t t-esc="o.company_id.name"/>
-                        </p>
-                        <p>
-                            <strong>Número de Factura:</strong>
-                            <t t-esc="o.name"/>
-                        </p>
-                        <p>
-                            <strong>Fecha de Emisión:</strong>
-                            <t t-esc="o.invoice_date"/>
-                        </p>
-                        <hr/>
-                        <table class="table table-sm" style="width: 100%;">
-                            <thead>
-                                <tr>
-                                    <th>Producto</th>
-                                    <th>Cantidad</th>
-                                    <th>Precio</th>
-                                    <th>Subtotal</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr t-foreach="o.invoice_line_ids" t-as="line">
-                                    <td>
-                                        <t t-esc="line.name"/>
-                                    </td>
-                                    <td>
-                                        <t t-esc="line.quantity"/>
-                                    </td>
-                                    <td>
-                                        <t t-esc="line.price_unit"/>
-                                    </td>
-                                    <td>
-                                        <t t-esc="line.price_subtotal"/>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <hr/>
-                        <p>
-                            <strong>Total:</strong>
-                            <t t-esc="o.amount_total"/>
-                        </p>
-                        <p style="text-align: center;">Gracias por su compra</p>
+                <t t-set="style">style="font-size:12px; font-family:monospace; width:100%; max-width:335px;"</t>
+                <div t-attf="{{ style }}">
+                    <div style="text-align:center;">
+                        <b>FACTURA</b>
+                        <br/>
+                        <b>CON DERECHO A CRÉDITO FISCAL</b>
+                        <br/>
+                        <span t-field="o.company_id.name"/>
+                        <br/>
+                        <span t-field="o.branch_office_id.name"/>
+                        <br/>
+            N°
+                        <span t-field="o.pos_id.name"/>
+                        <br/>
+                        <span t-field="o.pos_id.address"/>
+                        <br/>
+            Tel:
+                        <span t-field="o.company_id.phone"/>
+                        <br/>
+                        <span t-field="o.company_id.municipality_id.name"/>
                     </div>
-                </t>
+                    <hr/>
+                    <div style="text-align:center;">
+                        <b>NIT:</b>
+                        <span t-field="o.company_id.vat"/>
+                        <br/>
+                        <b>FACTURA N°:</b>
+                        <span t-field="o.invoice_number"/>
+                        <br/>
+                        <b>CÓD. AUTORIZACIÓN:</b>
+                        <br/>
+                        <span t-esc="o.cuf"/>
+                    </div>
+                    <hr/>
+                    <div>
+                        <b>CLIENTE:</b>
+                        <span t-field="o.partner_id.name"/>
+                        <br/>
+                        <b>CI/NIT/CEX:</b>
+                        <span t-field="o.partner_id.vat"/>
+                        <span t-if="o.partner_id.complement"> -
+                            <span t-field="o.partner_id.complement"/></span>
+                        <br/>
+                        <b>CÓD. CLIENTE:</b>
+                        <span t-field="o.partner_id.code"/>
+                        <br/>
+                        <b>FECHA EMISIÓN:</b>
+                        <span t-esc="o.get_formatted_datetime()"/>
+                        <span t-field="o.meridies"/>
+                    </div>
+                    <hr/>
+                    <table style="width:100%; font-size:11px;" cellspacing="0" cellpadding="0">
+                        <thead>
+                            <tr style="border-bottom:1px solid black;">
+                                <th style="text-align:left;">DETALLE</th>
+                                <th style="text-align:right;">TOTAL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="o.invoice_line_ids" t-as="line">
+                                <t t-if="line.display_type == 'product' and not line.product_id.gif_product">
+                                    <tr>
+                                        <td colspan="2">
+                                            <b t-field="line.product_id.default_code"/> -
+                                            <span t-esc="line.getDescription()"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="font-size:10px;">
+                      U.M.:
+                                            <span t-field="line.product_uom_id.siat_udm_id.descripcion"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size:10px;">
+                                            <span t-field="line.quantity"/> x
+                                            <span t-esc="line.getPriceUnit()" t-options='{"widget": "float", "precision": 2}'/> -
+                                            <span t-esc="line.getAmountDiscount()" t-options='{"widget": "float", "precision": 2}'/>
+                                        </td>
+                                        <td style="text-align:right;">
+                                            <span t-esc="line.price_total" t-options='{"widget": "float", "precision": 2}'/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </t>
+                        </tbody>
+                    </table>
+                    <hr/>
+                    <table style="width:100%; font-size:11px;">
+                        <tr>
+                            <td style="text-align:right;">SUBTOTAL Bs</td>
+                            <td style="text-align:right;" t-esc="o.getAmountSubTotal()" t-options='{"widget": "float", "precision": 2}'/>
+                        </tr>
+                        <tr>
+                            <td style="text-align:right;">DESCUENTO Bs</td>
+                            <td style="text-align:right;" t-esc="o.getAmountDiscount()" t-options='{"widget": "float", "precision": 2}'/>
+                        </tr>
+                        <tr>
+                            <td style="text-align:right;">TOTAL Bs</td>
+                            <td style="text-align:right;" t-esc="o.getAmountTotal()" t-options='{"widget": "float", "precision": 2}'/>
+                        </tr>
+                        <tr>
+                            <td style="text-align:right;">MONTO GIFT CARD</td>
+                            <td style="text-align:right;" t-esc="o.getAmountGiftCard()" t-options='{"widget": "float", "precision": 2}'/>
+                        </tr>
+                        <tr style="font-weight:bold;">
+                            <td style="text-align:right;">MONTO A PAGAR Bs</td>
+                            <td style="text-align:right;" t-esc="o.getAmountOnIva()" t-options='{"widget": "float", "precision": 2}'/>
+                        </tr>
+                        <tr t-if="o.currency_id.getCode() != 1" style="font-weight:bold;">
+                            <td style="text-align:right;">A PAGAR (
+                                <t t-esc="o.currency_id.getName()"/>)
+                            </td>
+                            <td style="text-align:right;" t-esc="o.getAmountOnIvaExchageRate()" t-options='{"widget": "float", "precision": 2}'/>
+                        </tr>
+                        <tr style="font-size:10px;">
+                            <td style="text-align:right;">IMPORTE BASE C.F. Bs</td>
+                            <td style="text-align:right;" t-esc="o.getAmountOnIva()" t-options='{"widget": "float", "precision": 2}'/>
+                        </tr>
+                    </table>
+                    <hr/>
+                    <div style="font-size:11px;">
+                        <b>Son:</b>
+                        <span t-esc="o.getBolivianLiteral()"/> Bolivianos
+                    </div>
+                    <hr/>
+                    <div style="font-size:10px; text-align:center;">
+            ESTA FACTURA CONTRIBUYE AL DESARROLLO DEL PAÍS
+                        <br/>
+            EL USO ILÍCITO SERÁ SANCIONADO PENALMENTE
+                    </div>
+                    <div style="font-size:10px; text-align:center;">
+                        <span t-field="o.legend_id.descripcionLeyenda"/>
+                        <br/>
+                        <span t-field="o.pos_id.emision_id.legend"/>
+                    </div>
+                    <div style="text-align:center; margin-top:5px;">
+                        <img t-att-src="'data:image/png;base64,' + str(o.generate_qr())" width="120" height="120"/>
+                    </div>
+                </div>
             </t>
         </t>
     </template>
