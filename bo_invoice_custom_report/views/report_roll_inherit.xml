@@ -1,11 +1,15 @@
 <odoo>
-  <template id="l10n_bo_invoice_purchase_sale_roll_template" inherit_id="l10n_bo_bolivian_invoice.report_roll">
+  <template id="l10n_bo_invoice_purchase_sale_roll_template" inherit_id="l10n_bo_invoice_purchase_sale_roll_template">
     <xpath expr="." position="replace">
       <t>
-        <!-- Tu nuevo contenido completo -->
-        <table style="width: 100%;">
-          <tr><td style="text-align: center"><b>NUEVO FORMATO DE FACTURA</b></td></tr>
-        </table>
+        <t t-call="web.external_layout">
+          <main class="main">
+            <!-- Aquí tu contenido nuevo -->
+            <table style="width: 100%;">
+              <tr><td style="text-align: center"><b>NUEVO FORMATO DE FACTURA</b></td></tr>
+            </table>
+          </main>
+        </t>
       </t>
     </xpath>
   </template>
