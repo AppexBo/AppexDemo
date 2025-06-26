@@ -1,5 +1,5 @@
 <odoo>
-  <template id="l10n_bo_invoice_purchase_sale_roll_template" inherit_id="l10n_bo_invoice_purchase_sale_roll_template">
+  <template id="l10n_bo_invoice_purchase_sale_roll_template" inherit_id="l10n_bo_bolivian_invoice.report_roll">
     <xpath expr="." position="replace">
       <t>
         <!-- Tu nuevo contenido completo -->
