@@ -52,7 +52,7 @@
                             </tr>
                         </table>
                         <div style="text-align: center; font-weight: bold; font-size: 13px;">
-                            ------------------------------------------------------------------
+                            ------------------------------------------------------------------------
                         </div>
 
                         <table style="width: 100%; text-align: center; border: 1px solid white;">
@@ -86,7 +86,7 @@
                             <span t-esc="o.cuf"/>
                         </div>
                         <div style="text-align: center; font-weight: bold; font-size: 13px;">
-                            ------------------------------------------------------------------
+                            ------------------------------------------------------------------------
                         </div>
 
                         <table style="width: 100%; text-align: center; border: 1px solid white;">
@@ -94,7 +94,7 @@
                                 <td style="width: 40%; text-align: right; border: none !important;">
                                     <b>NOMBRE/RAZÓN SOCIAL:</b>
                                 </td>
-                                <td style="padding-left: 5px; border: none !important;">
+                                <td style="padding-left: 5px; border: none !important; text-align: start !important;">
                                     <span t-field="o.partner_id.name"/>
                                 </td>
                             </tr>
@@ -102,7 +102,7 @@
                                 <td style="text-align: right; border: none !important;">
                                     <b>NIT/CI/CEX:</b>
                                 </td>
-                                <td style="padding-left: 5px; border: none !important;">
+                                <td style="padding-left: 5px; border: none !important; text-align: start !important;">
                                     <span t-field="o.partner_id.vat"/>
                                     <span t-if="o.partner_id.complement"> -
                                         <span t-field="o.partner_id.complement"/></span>
@@ -112,7 +112,7 @@
                                 <td style="text-align: right; border: none !important;">
                                     <b>COD. CLIENTE:</b>
                                 </td>
-                                <td style="padding-left: 5px; border: none !important;">
+                                <td style="padding-left: 5px; border: none !important; text-align: start !important;">
                                     <span t-field="o.partner_id.code"/>
                                 </td>
                             </tr>
@@ -120,14 +120,14 @@
                                 <td style="text-align: right; border: none !important;">
                                     <b>FECHA DE EMISIÓN:</b>
                                 </td>
-                                <td style="padding-left: 5px; border: none !important;">
+                                <td style="padding-left: 5px; border: none !important; text-align: start !important;">
                                     <span t-esc="o.get_formatted_datetime()"/>
                                     <span t-field="o.meridies"/>
                                 </td>
                             </tr>
                         </table>
                         <div style="text-align: center; font-weight: bold; font-size: 13px;">
-                            ------------------------------------------------------------------
+                            ------------------------------------------------------------------------
                         </div>
 
                         <table style="width: 100%; text-align: start; border: 1px solid white;">
@@ -147,7 +147,7 @@
                                             </td>
                                         </tr>
                                         <tr style="border: none !important;">
-                                            <td colspan="2" style="text-align:right; border: none !important;">Unidad de Medida:
+                                            <td colspan="2" style="text-align:start; border: none !important;">Unidad de Medida:
                                                 <span t-field="line.product_uom_id.siat_udm_id.descripcion"/>
                                             </td>
                                         </tr>
@@ -165,7 +165,7 @@
                             </tbody>
                         </table>
                         <div style="text-align: center; font-weight: bold; font-size: 13px;">
-                            ------------------------------------------------------------------
+                            ------------------------------------------------------------------------
                         </div>
 
                         <table style="width: 100%; text-align: center; border: 1px solid white;">
@@ -226,7 +226,7 @@
                                 <span t-esc="o.getBolivianLiteral()"/> Bolivianos</span>
                         </div>
                         <div style="text-align: center; font-weight: bold; font-size: 13px;">
-                            ------------------------------------------------------------------
+                            ------------------------------------------------------------------------
                         </div>
 
 
