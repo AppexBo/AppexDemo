@@ -174,7 +174,7 @@
                                 </t>
                             </tbody>
                         </table>
-                        <hr style="border: none; border-top: 1px dashed #000; margin: 5px 0;"/>
+                        <hr style="border: 5px; border-top: 1px dashed #000; margin: 5px 0;"/>
                         <table style="width: 100%; text-align: center; border: 1px solid white;">
                             <tr style="border: none !important;">
                                 <td style="text-align: right; border: none !important;">SUBTOTAL Bs</td>
