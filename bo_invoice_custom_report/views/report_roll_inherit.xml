@@ -91,7 +91,7 @@
 
                         <table style="width: 100%; text-align: center; border: 1px solid white;">
                             <tr style="border: none !important;">
-                                <td style="width: 40%; text-align: start; border: none !important;">
+                                <td style="width: 80%; text-align: right; border: none !important;">
                                     <b>NOMBRE/RAZÓN SOCIAL:</b>
                                 </td>
                                 <td style="padding-left: 5px; border: none !important; text-align: start !important;">
