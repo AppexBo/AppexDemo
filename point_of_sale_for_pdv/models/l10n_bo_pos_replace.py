@@ -12,7 +12,14 @@ class L10nBoPos(models.Model):
     _name ="l10n.bo.pos"
     _description="Puntos de venta de sucursale"
 
-
+    company_id = fields.Many2one(
+        string='Compañia', 
+        comodel_name='res.company', 
+        required=True, 
+        default=lambda self: self.env.company,
+        readonly=True 
+        
+    )
     state_id = fields.Many2one(
         string='Departamento',
         comodel_name='res.country.state',
