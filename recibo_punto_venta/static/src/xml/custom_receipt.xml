@@ -13,27 +13,10 @@
         <xpath expr="//div[hasclass('pos-receipt-right-align')]" position="replace">
             <!-- Reemplazamos con un div vacío o simplemente no ponemos nada -->
         </xpath>
-        <!-- Añadir clase al div principal -->
-        <!-- <xpath expr="//div[hasclass('pos-receipt')]" position="attributes">
-            <attribute name="class">pos-receipt m-3 my-receipt-style</attribute>
-        </xpath> -->
-        <!-- Añadir estilo directamente dentro del div del recibo -->
-        <!-- <xpath expr="//div[hasclass('pos-receipt')]" position="inside">
-            <style>
-                @media print {
-                    .my-receipt-style {
-                        font-size: 24px !important;
-                        line-height: 1.8 !important;
-                    }
-                    .my-receipt-style .receipt-line {
-                        padding: 6px 0 !important;
-                    }
-                }
-            </style>
-        </xpath> -->
-        <xpath expr="//div[contains(@class, 'pos-receipt')]" position="attributes">
-            <attribute name="style">margin-top: 0px !important;</attribute>
+        <xpath expr="//div[hasclass('before-footer')]" position="replace">
+            <!-- Reemplazamos con un div vacío o simplemente no ponemos nada -->
         </xpath>
+
         
     </t>
 </templates>
