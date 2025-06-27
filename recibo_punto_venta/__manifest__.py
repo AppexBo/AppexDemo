@@ -6,7 +6,7 @@
     'depends': ['point_of_sale','base'],
     'assets': {
         'point_of_sale._assets_pos': [
-            'reporte_punto_venta/static/src/xml/custom_receipt.xml',
+            'recibo_punto_venta/static/src/xml/custom_receipt.xml',
         ],
     },
   
