@@ -3,7 +3,7 @@
     'version': '1.0',
     'category': 'Point of Sale',
     'summary': 'Nuevo ajuste para los puntos de venta en la facturacion BO',
-    'depends': ['base','l10n_bo_bolivian_invoice'],
+    'depends': ['base','account','l10n_bo_bolivian_invoice','base_address_extended'],
     'data':[
         
     ],
