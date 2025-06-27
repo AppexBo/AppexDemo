@@ -6,9 +6,12 @@
         <field name="inherit_id" ref="base.view_company_form"/>
         <field name="arch" type="xml">
             <!-- Ocultar el campo municipality_id -->
-            <field name="municipality_id" position="attributes">
+            <!-- <field name="municipality_id" position="attributes">
                 <attribute name="invisible">1</attribute>
-            </field>
+            </field> -->
+            <xpath expr="//field[@name='vat']/field[@name='municipality_id'" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
         </field>
     </record>
 </odoo>
