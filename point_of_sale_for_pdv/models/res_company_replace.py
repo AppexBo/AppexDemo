@@ -9,19 +9,19 @@ class ResCompany(models.Model):
     state_id = fields.Many2one(
         string='Departamento',
         comodel_name='res.country.state',
-        readonly=True
+
     )
 
     province_id = fields.Many2one(
         string='Provincia',
         comodel_name='res.city',
         copy=False,
-        readonly=True
+
     )
     
     municipality_id = fields.Many2one(
         string='Municipio',
         comodel_name='res.municipality',
         copy=False,
-        readonly=True
+
     )   

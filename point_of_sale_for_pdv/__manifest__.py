@@ -9,7 +9,7 @@
         'l10n_bo', 
         'base_address_extended'],
     'data':[
-        
+        'views/ocultar_campos_res_company.xml'
     ],
   
     'installable': True,
