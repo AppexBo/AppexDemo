@@ -5,11 +5,7 @@
         <field name="model">res.company</field>
         <field name="inherit_id" ref="base.view_company_form"/>
         <field name="arch" type="xml">
-            <!-- Ocultar el campo municipality_id -->
-            <!-- <field name="municipality_id" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </field> -->
-            <xpath expr="//field[@name='vat']/field[@name='municipality_id'" position="attributes">
+            <xpath expr="//field[@name='municipality_id']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
         </field>
