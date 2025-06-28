@@ -8,11 +8,12 @@
         'account',
         'l10n_bo', 
         'base_address_extended'],
+    'post_init_hook': 'remove_company_custom_fields',
     'data':[
         'views/ocultar_campos_res_company.xml',
-        'views/nuevo_campos_point_sale.xml'
+        'views/nuevo_campos_point_sale.xml',
     ],
-  
+    
     'installable': True,
     'application': False,
 }
