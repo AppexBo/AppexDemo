@@ -9,8 +9,8 @@ import pytz
 _logger = logging.getLogger(__name__)
 
 class L10nBoPos(models.Model):
-    _name ="l10n.bo.pos"
-    _description="Puntos de venta de sucursale"
+    _inherit ="l10n.bo.pos"
+    _description="Nuevos campos en el punto de venta"
 
     company_id = fields.Many2one(
         string='Compañia', 

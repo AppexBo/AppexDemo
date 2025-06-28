@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="nuevo_campos_point_sale" model="ir.ui.view">
+        <field name="name">l10n.bo.pos</field>
+        <field name="model">l10n.bo.pos</field>
+        <field name="inherit_id" ref="l10n_bo_bolivian_invoice.view_l10n_bo_pos_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='address']" position="after">
+                <field name="state_id"></field>
+                <field name="province_id"></field>
+                <field name="municipality_id"></field>
+            </xpath>
+        </field>
+    </record>
+</odoo>

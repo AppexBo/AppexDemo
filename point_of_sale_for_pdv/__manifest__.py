@@ -9,7 +9,8 @@
         'l10n_bo', 
         'base_address_extended'],
     'data':[
-        'views/ocultar_campos_res_company.xml'
+        'views/ocultar_campos_res_company.xml',
+        'views/nuevo_campos_point_sale.xml'
     ],
   
     'installable': True,
