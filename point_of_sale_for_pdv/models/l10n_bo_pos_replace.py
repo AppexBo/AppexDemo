@@ -23,7 +23,7 @@ class L10nBoPos(models.Model):
     state_id = fields.Many2one(
         string='Departamento',
         comodel_name='res.country.state',
-        domain=lambda self: [('country_id', '=', self.env.company.country_id.id)]
+        domain=lambda self: [('country_id', '=', self.env.company_id.country_id.id)]
     )
     province_id = fields.Many2one(
         string='Provincia',
@@ -36,6 +36,7 @@ class L10nBoPos(models.Model):
         comodel_name='res.municipality',
         copy=False,
     )   
+
     @api.onchange('state_id')
     def _onchange_state_id(self):
         if self._origin and self.state_id and self.state_id != self._origin.state_id:
