@@ -8,59 +8,48 @@ from pytz import timezone
 import pytz
 _logger = logging.getLogger(__name__)
 
+
 class L10nBoPos(models.Model):
-    _inherit ="l10n.bo.pos"
-    _description="Nuevos campos en el punto de venta"
+    _inherit = "l10n.bo.pos"
+    _description = "Nuevos campos en el punto de venta"
 
     company_id = fields.Many2one(
-        string='Compañia', 
-        comodel_name='res.company', 
-        required=True, 
+        string='Compañía',
+        comodel_name='res.company',
+        required=True,
         default=lambda self: self.env.company,
-        readonly=True 
-        
+        readonly=True
     )
+
     state_id = fields.Many2one(
         string='Departamento',
         comodel_name='res.country.state',
-        domain=lambda self: [('country_id', '=', self.env.company_id.country_id.id)]
+        # Referencia a la compañía seleccionada
+        domain="[('country_id', '=', company_id.country_id)]"
     )
+
     province_id = fields.Many2one(
         string='Provincia',
         comodel_name='res.city',
-        copy=False
+        # Solo provincias del departamento seleccionado
+        domain="[('state_id', '=', state_id)]"
     )
-    
+
     municipality_id = fields.Many2one(
         string='Municipio',
         comodel_name='res.municipality',
-        copy=False,
-    )   
+        # Municipios del departamento seleccionado
+        domain="[('state_id', '=', state_id)]"
+    )
 
     @api.onchange('state_id')
     def _onchange_state_id(self):
         if self._origin and self.state_id and self.state_id != self._origin.state_id:
             self.province_id = False
             self.municipality_id = False
-    
+
     def getMunicipalityName(self):
         if self.municipality_id:
             return self.municipality_id.name
-        raise UserError('El punto de venta seleccionado no tiene municipio asignado.')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        raise UserError(
+            'El punto de venta seleccionado no tiene municipio asignado.')
