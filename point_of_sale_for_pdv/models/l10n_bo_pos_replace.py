@@ -25,7 +25,7 @@ class L10nBoPos(models.Model):
         string='Departamento',
         comodel_name='res.country.state',
         # Referencia a la compañía seleccionada
-        domain="[('country_id', '=', company_id.country_id)]"
+        domain="[('country_id', '=', company_id.country_id.id)]"
     )
 
     province_id = fields.Many2one(
