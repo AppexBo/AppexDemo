@@ -1,3 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_rol,access_rol,gestor_roles_permisos.model_gestor_rol,base.group_system,1,1,1,1
-access_permiso,access_permiso,gestor_roles_permisos.model_gestor_permiso,base.group_system,1,1,1,1
