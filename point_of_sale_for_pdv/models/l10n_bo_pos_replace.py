@@ -40,7 +40,7 @@ class L10nBoPos(models.Model):
         copy=False,
     )
 
-    @api.onchange('state_id')
+    @api.depends('state_id')
     def _onchange_state_id(self):
         if self.state_id and self.company_id:
             self.company_id.state_id = self.state_id
