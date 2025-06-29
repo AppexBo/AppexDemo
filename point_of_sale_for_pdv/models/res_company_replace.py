@@ -7,14 +7,14 @@ from odoo.exceptions import UserError
 class ResCompany(models.Model):
     _inherit = 'res.company'
 
-    state_id = fields.char(
+    state_id = fields.Many2one(
         string='Departamento',
     )
 
-    province_id = fields.char(
+    province_id = fields.Many2one(
         string='Provincia',
     )
 
-    municipality_id = fields.char(
+    municipality_id = fields.Many2one(
         string='Municipio',
     )
