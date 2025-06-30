@@ -40,21 +40,6 @@ class L10nBoPos(models.Model):
         copy=False,
     )
 
-    @api.depends('state_id')
-    def _onchange_state_id(self):
-        if self.state_id and self.company_id:
-            self.company_id.state_id = self.state_id
-
-    @api.onchange('province_id')
-    def _onchange_province_id(self):
-        if self.province_id and self.company_id:
-            self.company_id.province_id = self.province_id
-
-    @api.onchange('municipality_id')
-    def _onchange_municipality_id(self):
-        if self.municipality_id and self.company_id:
-            self.company_id.municipality_id = self.municipality_id
-
     @api.onchange('state_id')
     def _onchange_state_id(self):
         if self._origin and self.state_id and self.state_id != self._origin.state_id:
