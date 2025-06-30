@@ -8,25 +8,22 @@ class ResCompany(models.Model):
     
  
     state_id = fields.Many2one(
-        comodel_name='res.country.state',
         string='Departamento',
-        required=False,  # Desactiva cualquier restricción
-        store=False,     # Evita que se almacene en la base de datos
-        compute=lambda self: None,  # Anula cualquier lógica
+        #comodel_name='res.country.state'
     )
 
     province_id = fields.Many2one(
-        comodel_name='res.city',
         string='Provincia',
-        required=False,
-        store=False,
-        compute=lambda self: None,
+        #comodel_name='res.city',
+        copy=False
     )
+    
+    
+    
+    
 
     municipality_id = fields.Many2one(
-        comodel_name='res.municipality',
         string='Municipio',
-        required=False,
-        store=False,
-        compute=lambda self: None,
-    )
+        #comodel_name='res.municipality',
+        copy=False
+    )   

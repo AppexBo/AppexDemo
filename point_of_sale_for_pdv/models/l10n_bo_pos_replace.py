@@ -21,33 +21,33 @@ class L10nBoPos(models.Model):
         readonly=True
 
     )
-    state_id = fields.Many2one(
+    state_id_nuevo = fields.Many2one(
         string='Departamento',
         comodel_name='res.country.state',
         domain=lambda self: [
             ('country_id', '=', self.env.company.country_id.id)]
     )
 
-    province_id = fields.Many2one(
+    province_id_nuevo = fields.Many2one(
         string='Provincia',
         comodel_name='res.city',
         copy=False
     )
 
-    municipality_id = fields.Many2one(
+    municipality_id_nuevo = fields.Many2one(
         string='Municipio',
         comodel_name='res.municipality',
         copy=False,
     )
 
-    @api.onchange('state_id')
+    @api.onchange('state_id_nuevo')
     def _onchange_state_id(self):
-        if self._origin and self.state_id and self.state_id != self._origin.state_id:
-            self.province_id = False
-            self.municipality_id = False
+        if self._origin and self.state_id_nuevo and self.state_id_nuevo != self._origin.state_id_nuevo:
+            self.province_id_nuevo = False
+            self.municipality_id_nuevo = False
 
     def getMunicipalityName(self):
-        if self.municipality_id:
-            return self.municipality_id.name
+        if self.municipality_id_nuevo:
+            return self.municipality_id_nuevo.name
         raise UserError(
             'El punto de venta seleccionado no tiene municipio asignado.')
