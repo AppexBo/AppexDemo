@@ -1,11 +1,11 @@
 <templates id="new_pos_invoice_appexbo" name="point_of_sale.template">
     <t t-name="OrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
         <!-- Añadir algo al final del recibo -->
-        <xpath expr="//div[hasclass('paymentlines')]" position="replace">
+        <!-- <xpath expr="//div[hasclass('paymentlines')]" position="replace">
            
-        </xpath>
+        </xpath> -->
         <xpath expr="//div[hasclass('pos-receipt-amount') and hasclass('receipt-change')]" position="replace">
-            <!-- Reemplazamos con un div vacío o simplemente no ponemos nada -->
+           
         </xpath>
         <xpath expr="//div[hasclass('pos-receipt-taxes')]" position="replace">
             <!-- Reemplazamos con un div vacío o simplemente no ponemos nada -->
@@ -13,9 +13,9 @@
         <xpath expr="//div[hasclass('pos-receipt-right-align')]" position="replace">
             <!-- Reemplazamos con un div vacío o simplemente no ponemos nada -->
         </xpath>
-        <xpath expr="//div[hasclass('before-footer')]" position="replace">
-            <!-- Reemplazamos con un div vacío o simplemente no ponemos nada -->
-        </xpath>
+        <!-- <xpath expr="//div[hasclass('before-footer')]" position="replace">
+          
+        </xpath> -->
 
         
     </t>
