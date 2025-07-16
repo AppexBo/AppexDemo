@@ -22,7 +22,7 @@ class HelpdeskTicket(models.Model):
         res = super(HelpdeskTicket, self).write(vals)
         for ticket in self:
             if 'sla_paused' in vals or 'sla_pause_start' in vals:
-                ticket.sla_ids._compute_deadline()
+                ticket.sla_ids._compute_sla_deadline()
         return res
 
 class MailMessage(models.Model):
@@ -62,23 +62,36 @@ class MailMessage(models.Model):
 class HelpdeskSLA(models.Model):
     _inherit = 'helpdesk.sla'
 
-    def _compute_deadline(self):
-        # Sobrescribir el cálculo del plazo del SLA
+    def _compute_sla_deadline(self):
+        # Calcular el plazo del SLA ajustado por el tiempo pausado
         for sla in self:
-            # Buscar el ticket asociado a través de una búsqueda inversa
             ticket = self.env['helpdesk.ticket'].search([('sla_ids', 'in', sla.id)], limit=1)
             if not ticket:
                 continue  # Si no hay ticket asociado, saltar
 
+            # Obtener el tiempo del SLA (en horas o días) desde la configuración
+            sla_time = sla.time if sla.time_type == 'hours' else sla.time_days * 24.0
+            if not sla_time:
+                sla.deadline = False
+                continue
+
+            # Obtener la fecha de inicio (creación del ticket)
+            start_date = ticket.create_date
+
+            # Calcular el tiempo pausado
             if ticket.sla_paused and ticket.sla_pause_start:
-                # Excluir el tiempo pausado actual
                 pause_duration = (fields.Datetime.now() - ticket.sla_pause_start).total_seconds() / 3600.0
                 total_paused = ticket.sla_total_paused_time + pause_duration
             else:
                 total_paused = ticket.sla_total_paused_time
 
-            # Obtener el deadline original
-            super(HelpdeskSLA, sla)._compute_deadline()
-            if sla.deadline:
-                # Ajustar el deadline sumando el tiempo pausado
-                sla.deadline = sla.deadline + timedelta(hours=total_paused)
+            # Calcular el deadline base sumando el tiempo del SLA al start_date
+            calendar = sla.company_id.resource_calendar_id or self.env.company.resource_calendar_id
+            deadline = calendar.plan_hours(sla_time, start_date, compute_leaves=True)
+
+            # Ajustar el deadline sumando el tiempo pausado
+            if deadline:
+                deadline = deadline + timedelta(hours=total_paused)
+                sla.deadline = deadline
+            else:
+                sla.deadline = False
