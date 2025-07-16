@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Heredar la vista del formulario de helpdesk.ticket -->
+    <record id="helpdesk_ticket_view_form_inherit_sla_pause" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.form.inherit.sla.pause</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+        <field name="arch" type="xml">
+            <!-- Agregar los campos debajo del campo SLA en el formulario -->
+            <xpath expr="//field[@name='sla_ids']" position="after">
+                <group string="Estado del SLA">
+                    <field name="sla_paused" readonly="1"/>
+                    <field name="sla_pause_start" readonly="1"/>
+                    <field name="sla_total_paused_time" readonly="1" widget="float_time"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
