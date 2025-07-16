@@ -1,5 +1,5 @@
 from odoo import models, fields, api
-from datetime import datetime
+from datetime import datetime, timedelta
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 class HelpdeskTicket(models.Model):
@@ -49,11 +49,13 @@ class MailMessage(models.Model):
                             ticket.sla_total_paused_time += pause_duration
                         ticket.sla_paused = False
                         ticket.sla_pause_start = False
+                        ticket.message_post(body="SLA reanudado por respuesta del cliente.")
                 # Si el mensaje es de un empleado, pausar el SLA
                 else:
                     if not ticket.sla_paused:
                         ticket.sla_paused = True
                         ticket.sla_pause_start = fields.Datetime.now()
+                        ticket.message_post(body="SLA pausado tras mensaje del equipo.")
                         
         return message
 
@@ -63,7 +65,11 @@ class HelpdeskSLA(models.Model):
     def _compute_deadline(self):
         # Sobrescribir el cálculo del plazo del SLA
         for sla in self:
-            ticket = sla.ticket_id
+            # Buscar el ticket asociado a través de una búsqueda inversa
+            ticket = self.env['helpdesk.ticket'].search([('sla_ids', 'in', sla.id)], limit=1)
+            if not ticket:
+                continue  # Si no hay ticket asociado, saltar
+
             if ticket.sla_paused and ticket.sla_pause_start:
                 # Excluir el tiempo pausado actual
                 pause_duration = (fields.Datetime.now() - ticket.sla_pause_start).total_seconds() / 3600.0
@@ -71,7 +77,8 @@ class HelpdeskSLA(models.Model):
             else:
                 total_paused = ticket.sla_total_paused_time
 
-            # Ajustar el deadline restando el tiempo pausado
-            original_deadline = super(HelpdeskSLA, sla)._compute_deadline()
-            if original_deadline:
-                sla.deadline = fields.Datetime.from_string(original_deadline) + timedelta(hours=total_paused)
+            # Obtener el deadline original
+            super(HelpdeskSLA, sla)._compute_deadline()
+            if sla.deadline:
+                # Ajustar el deadline sumando el tiempo pausado
+                sla.deadline = sla.deadline + timedelta(hours=total_paused)
