@@ -67,10 +67,11 @@ class HelpdeskSLA(models.Model):
         for sla in self:
             ticket = self.env['helpdesk.ticket'].search([('sla_ids', 'in', sla.id)], limit=1)
             if not ticket:
+                sla.deadline = False
                 continue  # Si no hay ticket asociado, saltar
 
-            # Obtener el tiempo del SLA (en horas o días) desde la configuración
-            sla_time = sla.time if sla.time_type == 'hours' else sla.time_days * 24.0
+            # Obtener el tiempo del SLA (en horas)
+            sla_time = sla.time if sla.time else sla.time_days * 24.0 if sla.time_days else 0.0
             if not sla_time:
                 sla.deadline = False
                 continue
