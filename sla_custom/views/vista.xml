@@ -7,7 +7,7 @@
         <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
         <field name="arch" type="xml">
             <!-- Agregar los campos debajo del campo SLA en el formulario -->
-            <xpath expr="//field[@name='sla_ids']" position="after">
+            <xpath expr="//field[@name='email_cc']" position="after">
                 <group string="Estado del SLA">
                     <field name="sla_paused" readonly="1"/>
                     <field name="sla_pause_start" readonly="1"/>
