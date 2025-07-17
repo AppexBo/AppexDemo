@@ -14,6 +14,15 @@
                     <field name="sla_total_paused_time" readonly="1" widget="float_time"/>
                 </group>
             </xpath>
+            <sheet>
+                <notebook>
+                    <page string="Estado de la SLA">
+                        <field name="sla_paused" readonly="1"/>
+                        <field name="sla_pause_start" readonly="1"/>
+                        <field name="sla_total_paused_time" readonly="1" widget="float_time"/>
+                    </page>
+                </notebook>
+            </sheet>
         </field>
     </record>
 </odoo>
